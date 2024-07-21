@@ -1581,6 +1581,8 @@ footer .social-icons a{
  /* General Container */
 .product_Listing_Page {
   padding: 25px 0;
+  margin-top: 10px;
+  padding-top: 200px;
 }
 
 .header {
@@ -2287,11 +2289,11 @@ font-size: 0.7rem; /* Adjust font size as needed */
   background-color: rgba(255, 255, 255, 0.8); 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   padding: 1rem;
-  padding-top: 180px; /* Giữ padding-top để tạo khoảng cách từ trên */
+  padding-top: 220px; /* Giữ padding-top để tạo khoảng cách từ trên */
   display: flex; 
   flex-direction: column; 
   transition: transform 0.3s ease-in-out; 
-  z-index: 11; /* Đảm bảo z-index của cart-bar cao hơn header */
+  z-index: 12; /* Đảm bảo z-index của cart-bar cao hơn header */
 }
 
 .cart-bar.hidden {
