@@ -11,7 +11,7 @@ const Payment = () => {
     const [cartItems, setCartList] = useState([]);
   
     useEffect(() => {
-        context.setIsHeaderFooterShow(false); // Hide header and footer
+        //context.setIsHeaderFooterShow(false); // Hide header and footer
         context.setCartShow(false);
 
       const fetchBooks = async () => {
