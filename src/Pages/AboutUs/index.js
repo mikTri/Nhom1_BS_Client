@@ -12,9 +12,7 @@ const AboutUs = () =>{
 
         <section className="AboutUs">
             {/* đường dẫn */}
-            <div className="card shadow border-0 w-100 flex-row p-4 align-items-center">
-                <Breadcrumb breadcrumbs={breadcrumbs}/>
-            </div>
+            
 
             <div className="main-container col1-layout">
                 <div className="main">
