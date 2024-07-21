@@ -905,6 +905,7 @@ footer .social-icons a{
   position: relative;
   margin-bottom: 30px;
   cursor: pointer;
+  padding-top: 190px;
 }
 
 .homeBannerSection img {
@@ -1041,8 +1042,10 @@ footer .social-icons a{
 
 /* MyAccount */
 
-/* .section.myAccountPage {
-} */
+.myAccountPage {
+  margin-top: 10px;
+  padding-top: 180px;
+}
 
 /* .container {
 } */
@@ -1051,6 +1054,7 @@ footer .social-icons a{
   font-size: 25px;
   font-weight: 700;
   color: #6d4aae;
+  
 }
 
 .myAccountPage .myAccBox {
@@ -1092,6 +1096,8 @@ footer .social-icons a{
 .contact {
   padding: 80px 0;
   background: #d9ccf1;
+  margin-top: 10px;
+  padding-top: 180px;
 }
 
 .contact .heading h2 {
@@ -1187,6 +1193,8 @@ footer .social-icons a{
 .PaymentMethodPolicy{
   padding: 20px 240px;
   background: #d9ccf1;
+  margin-top: 10px;
+  padding-top: 180px;
 }
 .PaymentMethodPolicy .page-empty-banner{ 
   padding: 20px;
@@ -1259,6 +1267,8 @@ footer .social-icons a{
 .RefundPolicy{
   padding: 20px 240px;
   background: #d9ccf1;
+  margin-top: 10px;
+  padding-top: 180px;
 }
 .RefundPolicy .page-empty-banner{ 
   padding: 20px;
@@ -1353,6 +1363,9 @@ footer .social-icons a{
 .AboutUs{
   padding: 20px 240px;
   background: #d9ccf1;
+  margin-top: 10px;
+  padding-top: 180px;
+
 }
 .AboutUs .page-empty-banner{ 
   padding: 20px;
@@ -1390,6 +1403,8 @@ footer .social-icons a{
 .DeliveryPolicy{
   padding: 20px 240px;
   background: #d9ccf1;
+  margin-top: 10px;
+  padding-top: 180px;
 }
 .DeliveryPolicy .page-empty-banner{ 
   padding: 20px;
@@ -2720,9 +2735,10 @@ font-size: 0.7rem; /* Adjust font size as needed */
 .product-details-container {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 200px;
+  margin-top: 300px;
   padding: 20px;
   background-color: #f9f9f9;
+  z-index: 12;
 }
 .product-details-container li {
   list-style-type: none; 
