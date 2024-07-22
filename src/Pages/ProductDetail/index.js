@@ -31,7 +31,7 @@ const ProductDetails = () => {
         productTitle: '',
         image: '',
         price: '',
-        quantity: '',
+        quantity: 1,
         subTotal: '',
       });
     
@@ -44,7 +44,7 @@ const ProductDetails = () => {
             productTitle: product.title,
             image: product.cover,
             price: product.discountPrice,
-            quantity: 1,
+            // quantity: 1,
             subTotal: product.discountPrice,
           });
         }catch (error) {
@@ -60,7 +60,7 @@ const ProductDetails = () => {
           // Update PostForm state
           setPost({
             productId: product._id,
-            userId,
+            userId: userId,
             productTitle: product.title,
             image: product.cover,
             price: product.discountPrice,
@@ -68,27 +68,31 @@ const ProductDetails = () => {
             subTotal: product.discountPrice,
           });
       
-          // Access updated PostForm directly
-          console.log(PostForm); // Now PostForm has updated values
+
+        //   console.log("PostForm: " + 
+        //     PostForm.userId + ", " +
+        //     PostForm.productId + ", " + 
+        //     PostForm.productTitle + ", " +
+        //     PostForm.image + ", " +
+        //     PostForm.price + ", " +
+        //     PostForm.quantity + ", " +
+        //     PostForm.subTotal
+        //   ); 
       
           postData('/api/cart/add', PostForm)
             .then(response => {
               console.log('Item added to cart:', response);
-              // Handle successful addition
             })
             .catch(error => {
               console.error('Error adding item to cart:', error);
-              // Handle error gracefully
             });
         } catch (error) {
           console.error('Error adding item to cart:', error);
-          // Handle error gracefully
         }
       };
 
     const handleAddToMyList = () => {
         setIsAddedToMyList(!isAddedToMyList);
-        // Handle adding product to wishlist logic here (optional)
     };
 
     useEffect(() => {
@@ -107,7 +111,7 @@ const ProductDetails = () => {
         };
 
         fetchProductData();
-    }, [id, fetchDataFromApi]);
+    }, []);
 
 
 
@@ -192,7 +196,7 @@ const ProductDetails = () => {
                             </div>
 
                             {/* <p className="mt-3">Nội dung: {productData.description}</p> */}
-                            <p className="mt-3"><strong>Nội dung:</strong> {renderDescription(productData.description, productData._id)}</p>
+                            <div className="mt-3"><strong>Nội dung:</strong> {renderDescription(productData.description, productData._id)}</div>
 
 
                             <div className="d-flex align-items-center mt-3 actions_">

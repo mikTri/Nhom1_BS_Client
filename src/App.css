@@ -905,7 +905,7 @@ footer .social-icons a{
   position: relative;
   margin-bottom: 30px;
   cursor: pointer;
-  padding-top: 210px;
+  padding-top: 190px;
 }
 
 .homeBannerSection img {
@@ -1097,7 +1097,7 @@ footer .social-icons a{
   padding: 80px 0;
   background: #d9ccf1;
   margin-top: 10px;
-  padding-top: 210px;
+  padding-top: 180px;
 }
 
 .contact .heading h2 {
@@ -1116,7 +1116,7 @@ footer .social-icons a{
   font-weight: 400;
   line-height: 1.7;
   /* color: #999999; */
-  color: #5b09a7;
+  color: #fff;
   margin: 20px 0 60px;
   padding: 0;
 }
@@ -1194,7 +1194,7 @@ footer .social-icons a{
   padding: 20px 240px;
   background: #d9ccf1;
   margin-top: 10px;
-  padding-top: 210px;
+  padding-top: 180px;
 }
 .PaymentMethodPolicy .page-empty-banner{ 
   padding: 20px;
@@ -1364,7 +1364,7 @@ footer .social-icons a{
   padding: 20px 240px;
   background: #d9ccf1;
   margin-top: 10px;
-  padding-top: 210px;
+  padding-top: 180px;
 
 }
 .AboutUs .page-empty-banner{ 
@@ -1597,7 +1597,7 @@ footer .social-icons a{
 .product_Listing_Page {
   padding: 25px 0;
   margin-top: 10px;
-  padding-top: 220px;
+  padding-top: 200px;
 }
 
 .header {
@@ -1877,8 +1877,8 @@ text-align: center;}
 .PM-section {
   padding: 100px 0;
   background-color: #6d4aae;
- margin-top: 10px;
- padding-top: 210px;
+  margin-top: 10px;
+  padding-top: 180px;
 }
 
 .PM-container {

@@ -39,10 +39,6 @@ const MyContext = createContext();        //để chia sẻ dữ liệu toàn c�
 
 function App() {
 
-  // COUNTRIES: lấy danh sách các quốc gia
-  const [countryList, setCountryList] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('');
-
   // HEADER & FOOTER: trạng thái hiện thị hay không
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
   const [isCartShow, setCartShow] = useState(true);
@@ -67,15 +63,7 @@ function App() {
   const [Items, setCartList] = useState([]);
 
 
-  //COUNTRIES: gọi hàm getCountry một lần sau khi component được render lần đầu tiên 
-  useEffect(() => {
-    getCountry("https://countriesnow.space/api/v0.1/countries/");
 
-
-
-
-
-  }, []);
 
 
   //LOGIN: kiểm tra và xử lý trạng thái đăng nhập của user dựa trên dữ liệu trong localStorage
@@ -108,13 +96,6 @@ function App() {
   }, [isLogin]);                                                  //useEffect sẽ chạy lại mỗi khi isLogin thay đổi
 
 
-  //COUNTRIES: lấy dữ liệu từ API (thư viện Axios để gửi yêu cầu HTTP GET đến một URL)
-  const getCountry = async (url) => {
-    const responsive = await axios.get(url).then((res) => {
-      setCountryList(res.data.data) //phản hồi từ server chứa dữ liệu trong trường data, và dữ liệu quốc gia được trả về nằm trong mảng data
-      // console.log(res.data.data[0].country)
-    })
-  }
 
   //ALERT: xử lý đóng AlertBox khi user thực hiện một hành động cụ thể
   const handleClose = (event, reason) => {
@@ -124,20 +105,18 @@ function App() {
 
 
 
-  const openProductDetailsModal = (id, status) => {
-    fetchDataFromApi(`/api/products/${id}`).then((res) => {
-      setProductData(res);
-      setisOpenProductModal(status);
-    })
-  }
+  // const openProductDetailsModal = (id, status) => {
+  //   fetchDataFromApi(`/api/products/${id}`).then((res) => {
+  //     setProductData(res);
+  //     setisOpenProductModal(status);
+  //   })
+  // }
 
 
 
   //values: để truyền các giá trị và hàm setter
   const values = {
-    countryList,
-    setSelectedCountry,
-    selectedCountry,
+
 
     isHeaderFooterShow,
     setIsHeaderFooterShow,
@@ -156,10 +135,10 @@ function App() {
     setAlertBox,
 
 
-    isOpenProductModal,
-    setisOpenProductModal,
+    // isOpenProductModal,
+    // setisOpenProductModal,
 
-    openProductDetailsModal
+    // openProductDetailsModal
 
   }
 
@@ -186,14 +165,15 @@ function App() {
         </Snackbar>
 
 
-        {/* HEADER: chỉ hiển thị <Header/> khi isHeaderFooterShow=true */}
         {
           isHeaderFooterShow === true && <Header />
         }
-        {/* <Header/> */}
+
+
         {
           isCartShow === true && <ToggleableCartBar cartItems= {Items} />
         }
+
 
         {/* ROUTES: các đường dẫn */}
         <Routes>
@@ -209,17 +189,16 @@ function App() {
           <Route exact={true} path="/product-listing" element={<ProductListing />} />
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route exact={true} path="/Payment" element={<Payment />} />
-          <Route exact={true} path="/Cart" element={<Cart />} />
-
+          <Route exact={true} path="/Cart" element={<Cart />} /> 
 
         </Routes>
 
 
-        {/* FOOTER: chỉ hiển thị <Footer /> khi isHeaderFooterShow=true*/}
+
         {
           isHeaderFooterShow === true && <Footer />
         }
-        {/* <Footer /> */}
+
 
       </MyContext.Provider>
     </BrowserRouter>
@@ -228,3 +207,8 @@ function App() {
 
 export default App;
 export { MyContext }
+
+
+
+
+

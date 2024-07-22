@@ -45,13 +45,9 @@ const Home = ()=>{
             console.log(response);
             console.group(response.books);
             setBookList(response.books);})
-            // fetchDataFromApi('/api/cart').then((response) =>{
-            //     console.log('cart');
-            //     console.log(response);
-            //     setCartList(response);})
+
           } catch (error) {
             console.error('Error fetching books:', error);
-            // Handle error gracefully, e.g., display an error message
           }
         };
     
@@ -59,14 +55,16 @@ const Home = ()=>{
       }, []); // Empty dependency array ensures fetching only once
     
     return (
-        <>
+      <>
         <HomeBanner />
-        {/* <ToggleableCartBar cartItems= {Items} /> */}
+
         <FlashSale />
+        
         <BookPreview bookList={bookList}/>
+        
         <Leaderboard />
         
-        </>
+      </>
     )
 }
 

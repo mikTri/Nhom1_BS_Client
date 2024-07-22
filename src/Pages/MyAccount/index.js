@@ -259,10 +259,7 @@ const MyAccount = () => {
     return (
         <section className='content section myAccountPage'>
             <div className='container-fluid'>
-                <div className="card shadow border-0 w-100 p-3">
-                    <h5 className="mb-0">Tài khoản của tôi</h5>
-                    <div className='p-2'><Breadcrumb breadcrumbs={breadcrumbs} /></div>
-                </div>
+
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }} >
                     <Tabs value={value} onChange={handleTabChange}>
                         <Tab label="Thông tin cá nhân" />
@@ -406,6 +403,8 @@ const MyAccount = () => {
         </section>
     );
 };
+
+
 
 const CustomTabPanel = ({ children, value, index, ...other }) => {
     return (

@@ -28,13 +28,13 @@ const CartBar = ({ isVisible, onToggleVisibility, cartItems }) => {
                     <span>Số lượng: {item.quantity}</span>
                   </div>
                 </div>
-                <span className="item-price">${item.price.toFixed(2)}</span>
+                <span className="item-price">VND {item.price.toFixed(2)}</span>
               </li>
             ))}
           </ul>
           <div className="cart-total">
             <p>Tổng tiền:</p>
-            <span>${totalPrice.toFixed(2)}</span>
+            <span>VND {totalPrice.toFixed(2)}</span>
           </div>
           <div className="cart-buttons"> {/* Wrap buttons in a container */}
             <Link to="/Payment">

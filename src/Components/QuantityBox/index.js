@@ -19,27 +19,41 @@ const QuantityBox = (props) => {
 
 
     // 
+    const handleInputChange = (event) => {
+        const value = parseInt(event.target.value);
+        if (!isNaN(value) && value >= 1) {
+            setInputVal(value);
+            context.setAlertBox({ open: false });
+        } else {
+            context.setAlertBox({
+                open: true,
+                error: true,
+                msg: "Vui lòng nhập số lượng hợp lệ"
+            });
+        }
+    };
+
+
+    // 
     const minus = () => {
         if (inputVal !== 1 && inputVal > 0) {
             setInputVal(inputVal - 1);
         }
-        context.setAlertBox({
-            open:false,
-        })
     }
 
     // 
     const plus = () => {
-        let stock = parseInt(props.item.countInStock);
-        if(inputVal<stock){
-            setInputVal(inputVal + 1);
-        }else{
-            context.setAlertBox({
-                open:true,
-                error:true,
-                msg:"The quantity is greater than product count in stock"
-            })
-        }
+        setInputVal(inputVal + 1);
+        // let stock = parseInt(props.item.countInStock);
+        // if(inputVal<stock){
+        //     setInputVal(inputVal + 1);
+        // }else{
+        //     context.setAlertBox({
+        //         open:true,
+        //         error:true,
+        //         msg:"The quantity is greater than product count in stock"
+        //     })
+        // }
     }
 
     // 
@@ -59,8 +73,8 @@ const QuantityBox = (props) => {
     
     return (
         <div className='quantityDrop d-flex align-items-center'>
-            <Button onClick={minus}><FaMinus /></Button>
-            <input type="text" value={inputVal} />
+            <Button onClick={minus} disabled={inputVal <= 1}><FaMinus /></Button>
+            <input type="number" min="1" value={inputVal} onChange={handleInputChange} />
             <Button onClick={plus}><FaPlus /></Button>
         </div>
     )

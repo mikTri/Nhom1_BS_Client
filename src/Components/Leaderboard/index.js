@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 
 const MultiwaySwitchButton = ({ options, selectedValue, onSelect }) => {
-  // Implement logic to render buttons and handle selection
   return (
     <div className="multiway-switch-button">
       {/* Render buttons for each option and handle selection */}
@@ -91,18 +90,18 @@ const Leaderboard = () => {
       <p className='LB-Leaderboard-note'>(Vui lòng chọn tên Thể loại hoặc Tác giả)</p>
 
       <div className="LB-filters">
-        {/* Selection for genres (similar to BookPreview) */}
         {genres.length > 0 && (
           <div className="LB-genres-list">
             <h3>Thể loại</h3>
             <MultiwaySwitchButton
-              options={genres}
+              // options={genres}
+              options={genres.map((genre) => genre.genre)}
               selectedValue={selectedGenre}
               onSelect={(item) => handleSelectionChange(item, 'genre')}
             />
           </div>
         )}
-        {/* Selection for authors (similar to BookPreview) */}
+
         {authors.length > 0 && (
           <div className="LB-authors-list">
             <h3>Tác Giả</h3>

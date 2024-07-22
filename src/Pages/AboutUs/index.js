@@ -1,18 +1,11 @@
 
-import Breadcrumb from '../../Components/Breadcrumb';
-
 const AboutUs = () =>{
 
-    const breadcrumbs = [
-        { href: '#', label: 'Về chúng tôi' },
-    ];
-    
     return(
 
 
         <section className="AboutUs">
             {/* đường dẫn */}
-            
 
             <div className="main-container col1-layout">
                 <div className="main">

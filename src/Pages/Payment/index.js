@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, TextField } from '@mui/material';
-import { MyContext } from "../../App"; // Assuming MyContext controls header/footer visibility
 import Logo from '../../assets/images/bookStoreLogo.png';
-import '../../App.css';
+// import '../../App.css';
+import { MyContext } from '../../App';
 import { fetchDataFromApi, postData } from "../../utils/api";
 
-const Payment = () => {
+const Payment = () =>{
     const context = useContext(MyContext); // Assuming MyContext controls header/footer visibility
-
+    const [value, setValue] = useState(0);
     const [cartItems, setCartList] = useState([]);
   
     useEffect(() => {
@@ -66,87 +66,91 @@ const Payment = () => {
         }
     };
 
-        return (
-            <section className={`PM-section PM-paymentPage`}>
-              <div className="PM-shape-bottom"></div>
-          
-              <div className="PM-container">
-                <div className="PM-box card p-3 shadow border-0">
-                  <div className="text-center">
-                    <img src={Logo} alt="Logo" />
-                  </div>
-          
-                  <h2 className="mb-3 d-flex align-items-center justify-content-center">Thanh toán (Payment)</h2> {/* English in parentheses */}
-          
-                  <form onSubmit={handlePaymentSubmit}>
-                    <div className="row">
-                      {/* Billing Information */}
-                      <div className="PM-col-md-6">
-                        <div className="PM-form-group">
-                          <TextField
-                            label="Họ và Tên (Full Name)" // Vietnamese and English labels
-                            name="name"
-                            type="text"
-                            required
-                            variant="standard"
-                            className="PM-textField-fullName w-100" // Unique class name
-                            value={paymentDetails.name}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div className="PM-form-group">
-                          <TextField
-                            label="Số điện thoại (Phone Number)" // Vietnamese and English labels
-                            name="phoneNumber"
-                            type="tel" // Input type for phone number
-                            required
-                            variant="standard"
-                            className="PM-textField-phoneNumber w-100" // Unique class name
-                            value={paymentDetails.phoneNumber}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div className="PM-form-group">
-                          <TextField
-                            label="Số Tài Khoản (Card Number)" // Vietnamese and English labels (optional)
-                            name="paymentId"
-                            type="text" // Use 'text' to allow various characters
-                            required
-                            variant="standard"
-                            className="PM-textField-cardNumber w-100" // Unique class name
-                            value={paymentDetails.paymentId}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                      </div>
-          
-                      {/* Shipping Information */}
-                      <div className="PM-col-md-12">
-                        <div className="PM-form-group">
-                          <TextField
-                            label="Địa chỉ giao hàng (Shipping Address)" // Vietnamese and English labels
-                            name="address"
-                            type="text"
-                            multiline
-                            rows={4}
-                            required
-                            variant="standard"
-                            className="PM-textField-shippingAddress w-100" // Unique class name
-                            value={paymentDetails.address}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                      </div>
-                    </div>
-          
-                    <Button type="submit" className="btn-blue w-100 btn-lg btn-big">
-                      Thanh toán (Pay Now)
-                    </Button>
-                  </form>
-                </div>
+    return (
+
+        <section className={`PM-section PM-paymentPage`}>
+          <div className="PM-shape-bottom"></div>
+      
+          <div className="PM-container">
+            <div className="PM-box card p-3 shadow border-0">
+              <div className="text-center">
+                <img src={Logo} alt="Logo" />
               </div>
-            </section>
-          );
-};
+      
+              <h2 className="mb-3 d-flex align-items-center justify-content-center">Thanh toán (Payment)</h2> {/* English in parentheses */}
+      
+              <form onSubmit={handlePaymentSubmit}>
+                <div className="row">
+                  {/* Billing Information */}
+                  <div className="PM-col-md-6">
+                    <div className="PM-form-group">
+                      <TextField
+                        label="Họ và Tên (Full Name)" // Vietnamese and English labels
+                        name="name"
+                        type="text"
+                        required
+                        variant="standard"
+                        className="PM-textField-fullName w-100" // Unique class name
+                        value={paymentDetails.name}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="PM-form-group">
+                      <TextField
+                        label="Số điện thoại (Phone Number)" // Vietnamese and English labels
+                        name="phoneNumber"
+                        type="tel" // Input type for phone number
+                        required
+                        variant="standard"
+                        className="PM-textField-phoneNumber w-100" // Unique class name
+                        value={paymentDetails.phoneNumber}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="PM-form-group">
+                      <TextField
+                        label="Số Tài Khoản (Card Number)" // Vietnamese and English labels (optional)
+                        name="paymentId"
+                        type="text" // Use 'text' to allow various characters
+                        required
+                        variant="standard"
+                        className="PM-textField-cardNumber w-100" // Unique class name
+                        value={paymentDetails.paymentId}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+      
+                  {/* Shipping Information */}
+                  <div className="PM-col-md-12">
+                    <div className="PM-form-group">
+                      <TextField
+                        label="Địa chỉ giao hàng (Shipping Address)" // Vietnamese and English labels
+                        name="address"
+                        type="text"
+                        multiline
+                        rows={4}
+                        required
+                        variant="standard"
+                        className="PM-textField-shippingAddress w-100" // Unique class name
+                        value={paymentDetails.address}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+                </div>
+      
+                <Button type="submit" className="btn-blue w-100 btn-lg btn-big">
+                  Thanh toán (Pay Now)
+                </Button>
+              </form>
+            </div>
+          </div>
+        </section>
+      )
+}
 
 export default Payment;
+
+
+

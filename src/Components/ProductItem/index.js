@@ -86,7 +86,7 @@ const ProductItem = ({ props }) => {
                     <div className="actions">
                         <Button ><TfiFullscreen /></Button>
 
-                        <Button className={isAddedToMyList === true && 'active'} >
+                        <Button className={isAddedToMyList === true ? 'active' : ``} >
                             {
                                 isAddedToMyList === true ?
                                     <FaHeart style={{ fontSize: '20px' }} /> :

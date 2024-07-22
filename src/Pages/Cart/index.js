@@ -30,7 +30,7 @@ const Cart = () => {
     };
 
     fetchBooks(); // Fetch books on component mount
-  }); // Empty dependency array ensures fetching only once
+  }, []); // Empty dependency array ensures fetching only once
 
   const handleItemQuantityChange = async (Selecteditem, delta) => {
     const editedItem = { ...Selecteditem, quantity: Selecteditem.quantity + delta };
@@ -71,7 +71,7 @@ const Cart = () => {
           <>
             <div className="cartpage-total-container">
               <p>Tổng tiền:</p>
-              <span>${totalPrice.toFixed(2)}</span>
+              <span>VND {totalPrice.toFixed(2)}</span>
             </div>
             <ul className="cartpage-items-list" style={{ overflowY: 'auto', maxHeight: '500px' }}> {/* Added styles for scrolling */}
               {cartItems.map((item) => (
@@ -100,7 +100,7 @@ const Cart = () => {
                       </div>
                     </div>
                   </div>
-                  <span className="item-price">${item.price.toFixed(2)}</span>
+                  <span className="item-price">VND {item.price.toFixed(2)}</span>
                   <Button
                     variant="outlined"
                     size="small"
@@ -112,15 +112,15 @@ const Cart = () => {
                 </li>
               ))}
             </ul>
-            <div class="cartpage-button-container">
-              <div class="button-wrapper btn-payment-wrapper">
+            <div className="cartpage-button-container">
+              <div className="button-wrapper btn-payment-wrapper">
                 <Link to="/Payment">
                   <Button variant="contained" className="btn-cart-payment w-100 btn-big">
                     Thanh toán
                   </Button>
                 </Link>
               </div>
-              <div class="button-wrapper btn-continue-wrapper">
+              <div className="button-wrapper btn-continue-wrapper">
                 <Link to="/Home">
                   <Button variant="contained" className="btn-cart-outline btn-big">
                     Mua thêm
