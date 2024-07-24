@@ -1,27 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { CiCircleRemove } from "react-icons/ci";
+import { useNavigate, useLocation, Routes, Route, Link } from 'react-router-dom';
+
 import HomeIcon from '@mui/icons-material/Home';
 import { Tab, Tabs, Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Breadcrumb from '../../Components/Breadcrumb';
+
 import PasswordBox from '../../Components/PasswordBox';
 import { MyContext } from '../../App';
 
-// import {Icon} from 'react-icons-kit';
-// import {eyeOff} from 'react-icons-kit/feather/eyeOff';
-// import {eye} from 'react-icons-kit/feather/eye'
 
-// import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { postData, uploadImage, fetchDataFromApi, editData } from '../../utils/api';
+import { uploadImage, fetchDataFromApi, editData } from '../../utils/api';
 
 const MyAccount = () => {
     const [isLogin, setIsLogin] = useState(false);
-    const history = useNavigate();
+    const location = useLocation();
+    const navigate = useNavigate();
     const [userData, setUserData] = useState([]);
 
     const [isShowPassword, setIsShowPassword] = useState(false);
@@ -44,8 +39,8 @@ const MyAccount = () => {
     });
 
     const [fields, setFields] = useState({
-        oldPassword: "",
-        password: "",
+        adminPassword: "",
+        newPassword: "",
         confirmPassword: ""
     });
 
@@ -57,22 +52,16 @@ const MyAccount = () => {
     const context = useContext(MyContext);
     
 
-    const breadcrumbs = [
-        { href: '#', label: 'Quản lý tài khoản', icon: <HomeIcon fontSize="small" /> },
-        { href: '#', label: 'Tài khoản của tôi' }
-    ];
-
     useEffect(() => {
-        window.scrollTo(0, 0); // cuộn trang về đầu (tọa độ 0,0) khi component được render
-        const token = localStorage.getItem("token"); // giá trị của token từ localStorage
-        // console.log(token);
-        if (token !== "" && token !== undefined && token !== null) { // nếu token tồn tại (đã đăng nhập)
-            setIsLogin(true); // đổi trạng thái isLogin = true
+        window.scrollTo(0, 0); 
+        const token = localStorage.getItem("token"); 
+        if (token !== "" && token !== undefined && token !== null) { 
+            setIsLogin(true); 
         } else {
-            history("/signIn"); // điều hướng đến trang đăng nhập nếu chưa đăng nhập
+            navigate("/signIn"); 
         }
 
-        const user = JSON.parse(localStorage.getItem("user")); // lấy thông tin user từ localStorage
+        const user = JSON.parse(localStorage.getItem("user")); 
 
         if (user) {
             fetchDataFromApi(`/api/user/${user.userId}`).then((res) => {
@@ -89,12 +78,27 @@ const MyAccount = () => {
                 console.error("Error fetching user data", error);
             });
         }
-    }, [history]);
+    }, [navigate]);
 
+
+    // tab routes
+    useEffect(() => {
+        if (location.pathname.includes('change-password')) {
+            setValue(1);
+        } else {
+            setValue(0);
+        }
+    }, [location.pathname]);
 
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
+        if (newValue === 0) {
+            navigate(`/my-account/change-personal-info`);
+        } else {
+            navigate(`/my-account/change-password`);
+        }
     };
+
 
     // change user info (without password)
     const changeInput = (e) => {
@@ -106,55 +110,81 @@ const MyAccount = () => {
     };
 
     const changeInput2 = (e) => {
-        setFields(() => (
-            {
-                ...fields,
-                [e.target.name]: e.target.value
-            }
-        ));
-        console.log('Updated fields:', fields);
+        setFields(() => ({
+            ...fields,
+            [e.target.name]: e.target.value
+        }));
     }
 
     const changePassword = (e) => {
         e.preventDefault();
+
+        console.log("fields.staffPassword: " + fields.adminPassword);
+        console.log("fields.password: " + fields.newPassword);
+        console.log("fields.confirmPassword: " + fields.confirmPassword);
+
     
         // Validate form data
-        if (fields.oldPassword === "" || fields.password === "" || fields.confirmPassword === "") {
+        if (fields.adminPassword === "" || fields.newPassword === "" || fields.confirmPassword === "") {
             context.setAlertBox({ open: true, error: true, msg: 'Vui lòng điền đầy đủ thông tin'});
             return;
         }
     
-        if (fields.password !== fields.confirmPassword) {
+        if (fields.newPassword !== fields.confirmPassword) {
             context.setAlertBox({ open: true, error: true, msg: 'Mật khẩu và xác nhận mật khẩu không khớp' });
             return;
         }
     
-        if (fields.oldPassword === fields.password && fields.password === fields.confirmPassword) {
+        if (fields.adminPassword === fields.newPassword && fields.newPassword === fields.confirmPassword) {
             context.setAlertBox({ open: true, error: true, msg: 'Vui lòng đặt mật khẩu mới khác với mật khẩu hiện tại' });
             return;
         }
-    
-        const user = JSON.parse(localStorage.getItem("user"));
-        const data = {
-            name: user?.name,
-            email: user?.email,
-            password: fields.oldPassword,
-            newPass: fields.password
-        };
-    
-        setIsLoading(true);
-    
-        editData(`/api/user/changePassword/${user.userId}`, data)
-            .then((res) => {
-                context.setAlertBox({ open: true, error: false, msg: 'Mật khẩu đã được thay đổi thành công' });
-                setIsLoading(false);
-                setTimeout(() => { window.location.href = "/"; }, 2000);
-            })
-            .catch((error) => {
-                setIsLoading(false);
-                console.error('Lỗi khi thay đổi mật khẩu:', error);
-                context.setAlertBox({ open: true, error: true, msg: 'Đã xảy ra lỗi khi thay đổi mật khẩu' });
-            });
+
+
+        try {
+            const user = JSON.parse(localStorage.getItem("user"));
+            const data = {
+                email: user?.email,
+                password: fields.adminPassword,
+                newPass: fields.newPassword
+            };
+
+            console.log("data to change password:", data.email, ", ", data.password, ", ", data.newPass);
+        
+            setIsLoading(true);
+            editData(`/api/user/changePassword/${user?.userId}`, data)
+                .then((res) => {    
+                    console.log("******res: " + res);
+
+                    // Xử lý phản hồi từ server
+                    if (res?.error) {
+                        console.log("unsuccess");
+                        // Nếu có lỗi
+                        context.setAlertBox({ open: true, error: true, msg: res.msg });
+                    } 
+                    else if (res?.success || res === 'undefined') {
+                        // Nếu thành công
+                        console.log("success");
+                        context.setAlertBox({ open: true, error: false, msg: "Tài khoản của bạn đã được cập nhật" });
+                        setTimeout(() => {
+                            setIsLoading(false);
+                            navigate("/");
+                            context.setAlertBox({ open: false });
+                        }, 2000);
+                    }
+                })
+                .catch((error) => {
+                    setIsLoading(false);
+                    console.error('Lỗi khi thay đổi mật khẩu:', error);
+                    context.setAlertBox({ open: true, error: true, msg: error.response?.data?.msg || 'Đã xảy ra lỗi khi thay đổi mật khẩu' });
+                });
+        } 
+        catch (error) {
+            setIsLoading(false);
+            console.error('Lỗi khi thay đổi mật khẩu:', error);
+            context.setAlertBox({ open: true, error: true, msg: 'Đã xảy ra lỗi khi thay đổi mật khẩu' });
+        }
+        setIsLoading(false);
     };
 
     const handleTogglePassword = (type) => {
@@ -190,6 +220,7 @@ const MyAccount = () => {
         }
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
     
@@ -205,7 +236,6 @@ const MyAccount = () => {
             let imageUrl = '';
             console.log("file: " + file);
             if (file) {
-                // const result = await uploadImage('/api/uploadImage', { image });
                 // const result = await axios.post("http://localhost:4000/api/uploadImage", { image });
                 const result = await uploadImage('/api/uploadImage', { image });
                 imageUrl = result.secure_url;
@@ -222,6 +252,15 @@ const MyAccount = () => {
                 setIsLoading(true);
                 editData(`/api/user/${user?.userId}`, formDataWithImages)
                     .then((res) => {
+                        // update localStorage:
+                        const updatedUser = {
+                            ...user,
+                            name: formFields.name,
+                            userImage: formFields.images
+                        }
+                        localStorage.setItem("user", JSON.stringify(updatedUser));
+
+                        // 
                         setTimeout(() => {
                             context.setAlertBox({ open: false, error: false, msg: "Tài khoản của bạn đã được cập nhật" }); 
                             setIsLoading(false);
@@ -262,79 +301,132 @@ const MyAccount = () => {
 
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }} >
                     <Tabs value={value} onChange={handleTabChange}>
-                        <Tab label="Thông tin cá nhân" />
-                        <Tab label="Đổi mật khẩu" />
+                        <Tab label="Thông tin cá nhân" component={Link} to={`/my-account/change-personal-info`}/>
+                        <Tab label="Đổi mật khẩu" component={Link} to={`/my-account/change-password`}/>
                     </Tabs>
                 </Box>
 
-                <Box>
-                    <CustomTabPanel value={value} index={0}>
-                        <form onSubmit={handleSubmit}>
-                            <div className='row'>
-                                <div className='col-md-4 img-container card shadow border-0 p-3 px-4 py-4'>
-                                    <div className='imgUploadBox d-flex align-items-center'>
-                                        <div className='uploadBox w-100 d-flex align-items-center justify-content-center' onClick={handleImageClick}>
-                                            {preview ? (
-                                                <div className='box d-flex align-items-center justify-content-center'>
-                                                    <img alt="preview" effect="blur" className="w-100" src={preview} />
+                <Routes>
+                    <Route path="change-personal-info" element={
+                        <CustomTabPanel value={value} index={0}>
+                            <form onSubmit={handleSubmit}>
+                                <div className='row'>
+                                    <div className='col-md-4 img-container card shadow border-0 p-3 px-4 py-4'>
+                                        <div className='imgUploadBox d-flex align-items-center'>
+                                            <div className='uploadBox w-100 d-flex align-items-center justify-content-center' onClick={handleImageClick}>
+                                                {preview ? (
+                                                    <div className='box d-flex align-items-center justify-content-center'>
+                                                        <img alt="preview" effect="blur" className="w-100" src={preview} />
+                                                    </div>
+                                                ) : (
+                                                    <>
+                                                        {isLoading ? (
+                                                            <div className="progressBar text-center d-flex align-items-center justify-content-center flex-column">
+                                                                <CircularProgress />
+                                                                <span>Đang tải...</span>
+                                                            </div>
+                                                        ) : (
+                                                            <div className='info'>
+                                                                <h5>Tải ảnh lên</h5>
+                                                            </div>
+                                                        )}
+                                                    </>
+                                                )}
+                                                {/* {preview && (
+                                                    <span className="remove" onClick={removeImg}>
+                                                        <CiCircleRemove />
+                                                    </span>
+                                                )} */}
+                                                {isLoading || (
+                                                    <input type="file" id="file-input" onChange={handleChange} name="image" accept="image/png, image/jpeg, image/jpg, image/jfif" style={{ display: 'none' }} />
+                                                )}
+                                            </div>
+                                        </div>
+                                        <br/> <br/>
+                                        <div onClick={handleImageClick} className='text-center image-note'>bấm vào ô để tải ảnh</div>
+                                    </div>
+
+                                    <div className='col-md-8 card shadow border-0 p-4 px-4'>
+                                        <div className='row'>
+                                            <div className='col-md-6'>
+                                                <div className='form-group'>
+                                                    <TextField label="Tên" variant="outlined" className='w-100' name="name" onChange={changeInput} value={formFields.name} />
                                                 </div>
-                                            ) : (
-                                                <>
-                                                    {isLoading ? (
-                                                        <div className="progressBar text-center d-flex align-items-center justify-content-center flex-column">
-                                                            <CircularProgress />
-                                                            <span>Đang tải...</span>
-                                                        </div>
-                                                    ) : (
-                                                        <div className='info'>
-                                                            <h5>Tải ảnh lên</h5>
-                                                        </div>
-                                                    )}
-                                                </>
-                                            )}
-                                            {/* {preview && (
-                                                <span className="remove" onClick={removeImg}>
-                                                    <CiCircleRemove />
-                                                </span>
-                                            )} */}
-                                            {isLoading || (
-                                                <input type="file" id="file-input" onChange={handleChange} name="image" accept="image/png, image/jpeg, image/jpg, image/jfif" style={{ display: 'none' }} />
-                                            )}
+                                            </div>
+
+                                            <div className='col-md-6'>
+                                                <div className='form-group'>
+                                                    <TextField label="Email" variant="outlined" className='w-100' name="email" value={formFields.email} disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col-md-6'>
+                                                <div className='form-group'>
+                                                    <TextField label="Số điện thoại" variant="outlined" className='w-100' name="phone" onChange={changeInput} value={formFields.phone} />
+                                                </div>
+                                            </div>
+
+                                            <div className='col-md-6'>
+                                                <div className='form-group'>
+                                                    <TextField label="Địa chỉ" variant="outlined" className='w-100' name="address" onChange={changeInput} value={formFields.address} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='form-group'>
+                                            <Button variant="contained" className='btn bg-primary' type="submit">
+                                                {isLoading ? (
+                                                    <CircularProgress className='text-light' />
+                                                ) : (
+                                                    "Lưu"
+                                                )}
+                                            </Button>
                                         </div>
                                     </div>
-                                    <br/> <br/>
-                                    <div onClick={handleImageClick} className='text-center image-note'>bấm vào ô để tải ảnh</div>
                                 </div>
+                            </form>
+                        </CustomTabPanel>
+                    }/>
 
-                                <div className='col-md-8 card shadow border-0 p-4 px-4'>
-                                    <div className='row'>
-                                        <div className='col-md-6'>
-                                            <div className='form-group'>
-                                                <TextField label="Tên" variant="outlined" className='w-100' name="name" onChange={changeInput} value={formFields.name} />
-                                            </div>
+                    <Route path="change-password" element={
+                        <CustomTabPanel value={value} index={1}>
+                            <form onSubmit={changePassword} className='justify-content-center'>
+                                {/* card shadow border-0 p-4 px-4 */}
+                                <div className='card shadow border-0 p-4'>
+                                    <div className='row gx-3'>
+                                        <div className='col-md-4 col-sm-12 mb-3'>
+                                            <PasswordBox
+                                                label="Mật khẩu hiện tại"
+                                                name="adminPassword"
+                                                inputIndex={0}
+                                                setInputIndex={setInputIndex}
+                                                changeInput2={changeInput2}
+                                            />
                                         </div>
 
-                                        <div className='col-md-6'>
-                                            <div className='form-group'>
-                                                <TextField label="Email" variant="outlined" className='w-100' name="email" value={formFields.email} disabled />
-                                            </div>
+                                        <div className='col-md-4 col-sm-12 mb-3'>
+                                            <PasswordBox
+                                                label="Mật khẩu mới"
+                                                name="newPassword"
+                                                inputIndex={1}
+                                                setInputIndex={setInputIndex}
+                                                changeInput2={changeInput2}
+                                            />
+                                        </div>
+
+                                        <div className='col-md-4 col-sm-12 mb-3'>
+                                            <PasswordBox
+                                                label="Xác nhận mật khẩu mới"
+                                                name="confirmPassword"
+                                                inputIndex={2}
+                                                setInputIndex={setInputIndex}
+                                                changeInput2={changeInput2}
+                                            />
                                         </div>
                                     </div>
-                                    <div className='row'>
-                                        <div className='col-md-6'>
-                                            <div className='form-group'>
-                                                <TextField label="Số điện thoại" variant="outlined" className='w-100' name="phone" onChange={changeInput} value={formFields.phone} />
-                                            </div>
-                                        </div>
 
-                                        <div className='col-md-6'>
-                                            <div className='form-group'>
-                                                <TextField label="Địa chỉ" variant="outlined" className='w-100' name="address" onChange={changeInput} value={formFields.address} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='form-group'>
-                                        <Button variant="contained" className='btn bg-primary' type="submit">
+                                    <div className='form-group d-flex justify-content-center'>
+                                        <Button variant="contained" className='btn bg-primary btn-lg' type="submit">
                                             {isLoading ? (
                                                 <CircularProgress className='text-light' />
                                             ) : (
@@ -343,62 +435,13 @@ const MyAccount = () => {
                                         </Button>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </CustomTabPanel>
 
-                    <CustomTabPanel value={value} index={1}>
-                        <form onSubmit={changePassword} className='justify-content-center'>
-                            {/* card shadow border-0 p-4 px-4 */}
-                            <div className='card shadow border-0 p-4'>
-                                <div className='row gx-3'>
-                                    <div className='col-md-4 col-sm-12 mb-3'>
-                                        <PasswordBox
-                                            label="Mật khẩu hiện tại"
-                                            name="oldPassword"
-                                            inputIndex={0}
-                                            setInputIndex={setInputIndex}
-                                            changeInput2={changeInput2}
-                                        />
-                                    </div>
+                            </form>
+                        </CustomTabPanel>
+                        
+                    }/>
 
-                                    <div className='col-md-4 col-sm-12 mb-3'>
-                                        <PasswordBox
-                                            label="Mật khẩu mới"
-                                            name="password"
-                                            inputIndex={1}
-                                            setInputIndex={setInputIndex}
-                                            changeInput2={changeInput2}
-                                        />
-                                    </div>
-
-                                    <div className='col-md-4 col-sm-12 mb-3'>
-                                        <PasswordBox
-                                            label="Xác nhận mật khẩu mới"
-                                            name="confirmPassword"
-                                            inputIndex={2}
-                                            setInputIndex={setInputIndex}
-                                            changeInput2={changeInput2}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className='form-group d-flex justify-content-center'>
-                                    <Button variant="contained" className='btn bg-primary btn-lg' type="submit">
-                                        {isLoading ? (
-                                            <CircularProgress className='text-light' />
-                                        ) : (
-                                            "Lưu"
-                                        )}
-                                    </Button>
-                                </div>
-                            </div>
-
-                        </form>
-                    </CustomTabPanel>
-
-
-                </Box>
+                </Routes>
             </div>
         </section>
     );

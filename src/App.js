@@ -180,7 +180,7 @@ function App() {
           <Route path="/" exact={true} element={<Home />} />
           <Route exact={true} path="/signIn" element={<SignIn />} />
           <Route exact={true} path="/signUp" element={<SignUp />} />
-          <Route exact={true} path="/my-account" element={<MyAccount />} />
+          <Route exact={true} path="/my-account/*" element={<MyAccount />} />
           <Route exact={true} path="/contact" element={<Contact />} />
           <Route exact={true} path="/payment-method-policy" element={<PaymentMethodPolicy />} />
           <Route exact={true} path="/refund-policy" element={<RefundPolicy />} />

@@ -121,22 +121,31 @@ const Leaderboard = () => {
           <p>Đang tải dữ liệu...</p>
         ) : (
         topBooks.length > 0 && (
-          <ul className="LB-top-books-list">
+          <ul className="book-list">
             {/* Render top books details here (similar to BookPreview) */}
             {topBooks.map((book) => (
               <li key={book.id} className="LB-book-item">
                 <Link to={`/product-details/${book._id}`}>
                   {book.cover && <img src={book.cover} alt={book.title} width="80" height="auto" />}
-                </Link>
-                <span className="LB-book-info">
-                  {/* <div> {book.title} </div> */}
-                  <div>{book.title.length > 60 ? `${book.title.slice(0, 60)}...` : book.title}</div>
-                  <div className="LB-book-price">
-                    <span className="LB-original-price">{book.basePrice}</span>
-                    <span className="LB-sale-price">{book.discountPrice}</span>
+                  <p>{book.title.length > 60 ? `${book.title.slice(0, 60)}...` : book.title}</p>
+                  <div className="price">
+                    <span className="original">{book.basePrice.toLocaleString('vi-VN')}</span>
+                    <span className="sale">{book.discountPrice.toLocaleString('vi-VN')} VND</span>
                   </div>
-                </span>
+                </Link>
               </li>
+
+              // <li key={item.id}>               
+              // <Link to={`/product-details/${item.id}`}>
+              //   <img src={item.cover} alt={item.title}/>
+              //   <p className='title-container'>{item.title.length > 60 ? `${item.title.slice(0, 60)}...` : item.title}</p>
+              //   <div className="price">
+              //     <span className="original">{item.basePrice.toLocaleString('vi-VN')}</span>
+              //     <span className="sale">{item.discountPrice.toLocaleString('vi-VN')} VND</span>
+              //   </div>
+              // </Link>
+              // </li>
+
             ))}
             {topBooks.length === 0 && !isLoading && <p>Không có dữ liệu phù hợp.</p>}
           </ul>

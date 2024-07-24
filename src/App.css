@@ -66,7 +66,9 @@ body{
 
 /* Header  */
 .headerWrapper {
-  position: relative;
+  /* position: relative; */
+  position: fixed;
+  z-index: 1000;
 }
 .top-strip {
   background-color: #007bff;
@@ -74,31 +76,22 @@ body{
   padding: 10px 0;
 }
 
-/* .header {
-  position: relative;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-} */
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background-color: white;
+  width: 100%;
+  background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
 }
-
-
 .header .logoWrapper img {
   max-width: 70%;
 }
-
 .headerSearchWrapper {
   position: relative;
   flex: 1;
-
 }
 .headerSearchWrapper.open {
   display: flex;
@@ -360,41 +353,41 @@ nav .navPart2 ul li{
  position: relative; 
 }
 
-nav .navPart2 ul li .submenu{
+/* nav .navPart2 ul li .submenu{
   position: absolute; 
   top: 150%;
   left: 0px;
   min-width: 170px;
   background: #fff;
-  opacity: 0; /*ban đầu submenu bị ẩn*/
+  opacity: 0; 
   visibility: hidden;
   transition: all 0.2s ease-in-out;
   z-index: 100;
- }
+ } */
 
-nav .navPart2 ul li .submenu a{
+/* nav .navPart2 ul li .submenu a{
   display: block;
   width: 100%;
-}
+} */
 
-nav .navPart2 ul li .submenu a button{
+/* nav .navPart2 ul li .submenu a button{
   width: 100%;
   justify-content: flex-start !important;
   border-radius: 0px !important;
   text-transform: capitalize !important;
   font-weight: 500 !important;
-} 
+}  */
 
-nav .navPart2 ul li .submenu a button:hover{
+/* nav .navPart2 ul li .submenu a button:hover{
   background: #f1f1f1 !important;
-}
+} */
 
-nav .navPart2 ul li:hover .submenu{
-  opacity: 1; /*sau đó submenu hiển thị*/
+/* nav .navPart2 ul li:hover .submenu{
+  opacity: 1; 
   visibility: inherit;
   top: 100%;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Bóng cho menu */
-}
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+} */
 
 
 
@@ -1011,9 +1004,15 @@ footer .social-icons a{
   padding: 15px;
 }
 
-.productItem .info h4{
-  font-size: 15px;
+.productItem .info link h4{
+  font-size: 18px;
   font-weight: 500;
+  margin: 0;
+}
+
+.productItem .info a {
+  text-decoration: none; 
+  color: inherit; 
 }
 
 .productItem .info .oldPrice{
@@ -1268,7 +1267,7 @@ footer .social-icons a{
   padding: 20px 240px;
   background: #d9ccf1;
   margin-top: 10px;
-  padding-top: 180px;
+  padding-top: 210px;
 }
 .RefundPolicy .page-empty-banner{ 
   padding: 20px;
@@ -1403,8 +1402,8 @@ footer .social-icons a{
 .DeliveryPolicy{
   padding: 20px 240px;
   background: #d9ccf1;
-  margin-top: 10px;
-  padding-top: 180px;
+  margin-top: 15px;
+  padding-top: 200px;
 }
 .DeliveryPolicy .page-empty-banner{ 
   padding: 20px;
@@ -1598,16 +1597,10 @@ footer .social-icons a{
   padding: 25px 0;
   margin-top: 10px;
   padding-top: 210px;
+  z-index: 99;
 }
 
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000; 
-  background-color: #fff; 
-}
+
 
 
 
@@ -1814,49 +1807,56 @@ text-align: center;}
 .book-list {
   list-style: none; /* Loại bỏ dấu chấm từ danh sách */
   padding: 0;
-  display: flex;
+  /* display: flex; */
   flex-wrap: wrap;
   justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Điều chỉnh cột để có kích thước lớn hơn */
+  gap: 1rem; /* Tăng khoảng cách giữa các mục */
 }
 
-.book-item {
+.book-list li {
   background-color: #fff;
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  width: 270px; /* Đặt chiều rộng cố định cho mỗi mục sách */
-  margin-bottom: 1rem;
   text-align: center;
+  position: relative; /* Đặt vị trí tương đối để có thể sử dụng padding-bottom cho giá */
   display: flex;
-  flex-direction: column; /* Đảm bảo các phần tử được sắp xếp theo cột */
-  height: 410px; /* Đặt chiều cao cố định cho ô sách */
-  position: relative; /* Để có thể sử dụng padding-bottom cho phần tử khác */
+  flex-direction: column;
+  justify-content: space-between; /* Đảm bảo rằng nội dung được căn chỉnh đều */
+  height: 450px; /* Tăng chiều cao để có thêm không gian cho ảnh, tên sách và giá */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm hiệu ứng cho box-shadow */
 }
 
-.book-item img {
-  width: 100%; /* Đặt chiều rộng ảnh bằng chiều rộng của ô chứa */
-  height: 270px; /* Đặt chiều cao cố định cho ảnh */
+.book-list li:hover {
+  transform: scale(1.05); /* Tăng kích thước nhẹ khi hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Tăng độ bóng khi hover */
+}
+
+.book-list li a {
+  text-decoration: none;
+  color: inherit; /* Đảm bảo màu sắc của liên kết kế thừa từ phần tử cha */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Đảm bảo giá nằm ở đáy */
+  height: 100%; /* Đảm bảo liên kết chiếm toàn bộ chiều cao của ô */
+}
+
+.book-list li img {
+  display: block; 
+  max-height: 70%;
+  width: 100%; /* Chiều rộng ảnh chiếm toàn bộ chiều rộng của ô */
+  height: auto; /* Giữ tỷ lệ khung hình của ảnh */
   object-fit: cover; /* Đảm bảo ảnh bao phủ toàn bộ khu vực mà không bị méo */
-  border-radius: 5px; /* Bo góc cho ảnh */
-  margin-bottom: 0.5rem; /* Khoảng cách dưới ảnh */
+  border-radius: 5px; /* Tạo bo góc cho ảnh */
+  margin-bottom: 0.5rem; /* Khoảng cách giữa ảnh và tiêu đề */
+  text-align: center;
+  align-self: center;
 }
 
-.book-info {
-  margin-bottom: 1rem; /* Khoảng cách dưới thông tin sách */
-  height: auto; /* Đặt chiều cao tự động để có đủ không gian cho tiêu đề */
-  overflow: hidden; /* Đảm bảo rằng nội dung không vượt quá phần chứa */
-}
 
-.book-price {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Căn chỉnh giá theo chiều dọc */
-  font-size: 1.2rem; /* Kích thước chữ giá */
-  padding-bottom: 2px; /* Thêm khoảng cách giữa giá và đáy của ô */
-  margin-top: auto; /* Đẩy giá xuống đáy của ô */
-}
-
-.book-price .original-price {
+.original-price {
   text-decoration: line-through;
   color: #888; /* Màu chữ giá gốc nhạt hơn */
   margin-bottom: 0.5rem; /* Khoảng cách dưới giá gốc */
@@ -2291,39 +2291,47 @@ font-size: 0.7rem; /* Adjust font size as needed */
 
 
 
+@media (max-width: 768px) {
+  .cart-bar {
+    top: 60px; /* Giảm top trên màn hình nhỏ hơn */
+    width: 100%; /* Mở rộng giỏ hàng đầy chiều ngang màn hình */
+  }
+}
 
+@media (max-width: 480px) {
+  .cart-bar {
+    top: 50px; /* Giảm top hơn nữa trên màn hình rất nhỏ */
+  }
+}
 
 
 /* cart icon */
 .cart-bar {
   max-height: 90%;
   overflow-y: auto;
-  position: fixed; 
-  top: 0; /* Đặt top thành 0 để cart-bar bắt đầu từ đầu trang */
+  position: fixed;
+  top: 200px; /* Khoảng cách từ trên */
   right: 0;
-  width: 300px; 
-  background-color: rgba(255, 255, 255, 0.8); 
+  width: 300px;
+  background-color: rgba(255, 255, 255, 0.9); /* Bớt trong suốt để thấy rõ hơn */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   padding: 1rem;
-  padding-top: 220px; /* Giữ padding-top để tạo khoảng cách từ trên */
-  display: flex; 
-  flex-direction: column; 
-  transition: transform 0.3s ease-in-out; 
-  z-index: 12; /* Đảm bảo z-index của cart-bar cao hơn header */
+  padding-top: 50px; /* Khoảng cách từ trên */
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+  z-index: 999;
 }
 
-.cart-bar.hidden {
-  transform: translateX(100%); /* Hide the cart by moving it off-screen */
+/* Hiển thị giỏ hàng */
+.cart-bar.visible {
+  transform: translateX(0); /* Hiển thị giỏ hàng */
 }
 
+/* Các phần khác của giỏ hàng */
 .cart-bar h2 {
   margin-bottom: 1rem;
   font-size: 1.2rem;
-}
-
-.cart-bar.visible .cart-items-list {
-  max-height: 80%!important; /* Set your desired maximum height */
-  overflow-y: auto!important; /* Enable vertical scrolling */
 }
 
 .cart-items-list {
@@ -2331,6 +2339,7 @@ font-size: 0.7rem; /* Adjust font size as needed */
   padding: 0;
   margin: 0;
 }
+
 .cart-items-list li {
   display: flex;
   justify-content: space-between;
@@ -2348,7 +2357,7 @@ font-size: 0.7rem; /* Adjust font size as needed */
 .item-details img {
   width: 50px;
   height: 50px;
-  object-fit: cover; /* Maintain aspect ratio and keep image within bounds */
+  object-fit: cover;
   margin-right: 1rem;
 }
 
@@ -2362,6 +2371,7 @@ font-size: 0.7rem; /* Adjust font size as needed */
   justify-content: space-between;
   align-items: center;
 }
+
 
 
 
@@ -2480,6 +2490,7 @@ font-size: 0.7rem; /* Adjust font size as needed */
   font-weight: bold;
 }
 
+
 .flashsale__items {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Điều chỉnh cột để có kích thước lớn hơn */
@@ -2508,14 +2519,22 @@ font-size: 0.7rem; /* Adjust font size as needed */
 .flashsale__items li a {
   text-decoration: none;
   color: inherit; /* Đảm bảo màu sắc của liên kết kế thừa từ phần tử cha */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Đảm bảo giá nằm ở đáy */
+  height: 100%; /* Đảm bảo liên kết chiếm toàn bộ chiều cao của ô */
 }
 
 .flashsale__items li img {
-  width: 85%; /* Đặt chiều rộng ảnh bằng chiều rộng của ô */
+  display: block; 
+  max-height: 70%;
+  width: 100%; /* Chiều rộng ảnh chiếm toàn bộ chiều rộng của ô */
   height: auto; /* Giữ tỷ lệ khung hình của ảnh */
   object-fit: cover; /* Đảm bảo ảnh bao phủ toàn bộ khu vực mà không bị méo */
   border-radius: 5px; /* Tạo bo góc cho ảnh */
-  margin-bottom: 0.2rem; /* Tăng khoảng cách dưới ảnh */
+  margin-bottom: 0.5rem; /* Khoảng cách giữa ảnh và tiêu đề */
+  text-align: center;
+  align-self: center;
 }
 
 .flashsale__items li p {
@@ -2532,7 +2551,7 @@ font-size: 0.7rem; /* Adjust font size as needed */
   justify-content: center; /* Căn chỉnh nội dung theo chiều ngang */
 }
 
-.flashsale__items li .title-container p {
+.title-container p {
   margin: 0; /* Loại bỏ margin để tiêu đề căn chỉnh chính xác */
 }
 
@@ -2540,8 +2559,7 @@ font-size: 0.7rem; /* Adjust font size as needed */
   display: flex;
   justify-content: space-between; /* Đảm bảo giá nằm trên cùng một hàng */
   align-items: center; /* Căn chỉnh giá theo chiều dọc */
-  font-size: 1.2rem; /* Kích thước chữ giá */
-  padding-bottom: 2px; /* Thêm khoảng cách giữa giá và đáy của ô */
+  font-size: 1rem; /* Kích thước chữ giá */
   margin-top: auto; /* Đẩy giá xuống đáy của ô */
 }
 
@@ -2557,8 +2575,14 @@ font-size: 0.7rem; /* Adjust font size as needed */
 .price span.sale {
   color: #d9534f; /* Màu chữ giá khuyến mãi nổi bật */
   font-weight: bold;
-  font-size: 1.7rem; /* Tăng kích thước chữ giá khuyến mãi */
+  font-size: 1.5rem; /* Tăng kích thước chữ giá khuyến mãi */
 }
+
+
+
+
+
+
 
 .flashsale__view-all {
   display: block;
@@ -2625,7 +2649,7 @@ font-size: 0.7rem; /* Adjust font size as needed */
 .LB-filters {
   display: flex;
   justify-content: center; /* Căn giữa các phần tử lọc */
-  gap: 2rem; /* Khoảng cách giữa các phần tử lọc */
+  gap: 1rem; /* Khoảng cách giữa các phần tử lọc */
   margin-bottom: 2rem; /* Khoảng cách dưới phần lọc */
 }
 
@@ -2646,23 +2670,6 @@ font-size: 0.7rem; /* Adjust font size as needed */
   margin-top: 1.5rem; /* Khoảng cách trên giữa tiêu đề và danh sách sách */
 }
 
-.LB-top-books-list {
-  list-style: none; /* Loại bỏ dấu chấm từ danh sách */
-  padding: 0;
-  margin: 0; /* Đặt margin của danh sách về 0 để tránh khoảng cách không mong muốn */
-  display: flex; /* Sử dụng flexbox để phân phối các mục sách theo hàng */
-  flex-wrap: wrap; /* Cho phép các mục sách xuống dòng khi không đủ không gian */
-  justify-content: space-between; /* Phân phối đều các mục sách */
-}
-
-.LB-top-books-list h3 {
-  font-size: 1.8rem; /* Kích thước chữ tiêu đề */
-  font-weight: bold;
-  color: #264603; /* Màu chữ tiêu đề đậm hơn */
-  margin-bottom: 1.5rem; /* Khoảng cách dưới tiêu đề để cách xa danh sách sách */
-  text-align: center; /* Căn giữa tiêu đề */
-}
-
 .LB-book-item {
   background-color: #fff;
   border-radius: 10px;
@@ -2677,57 +2684,16 @@ font-size: 0.7rem; /* Adjust font size as needed */
   position: relative; /* Để có thể sử dụng padding-bottom cho phần tử khác */
 }
 
-.LB-book-item img {
-  width: 100%; /* Đặt chiều rộng ảnh bằng chiều rộng của ô chứa */
-  height: 270px; /* Đặt chiều cao cố định cho ảnh */
-  object-fit: cover; /* Đảm bảo ảnh bao phủ toàn bộ khu vực mà không bị méo */
-  border-radius: 5px; /* Bo góc cho ảnh */
-  margin-bottom: 0.5rem; /* Khoảng cách dưới ảnh */
-}
-
 .LB-book-info {
   margin-bottom: 1rem; /* Khoảng cách dưới thông tin sách */
   height: auto; /* Đặt chiều cao tự động để có đủ không gian cho tiêu đề */
   overflow: hidden; /* Đảm bảo rằng nội dung không vượt quá phần chứa */
 }
-
-.LB-book-price {
-  display: flex;
-  justify-content: space-between; /* Đảm bảo giá nằm trên cùng một hàng */
-  align-items: center; /* Căn chỉnh giá theo chiều dọc */
-  font-size: 1.2rem; /* Kích thước chữ giá */
-  padding-bottom: 2px; /* Thêm khoảng cách giữa giá và đáy của ô */
-  margin-top: auto; /* Đẩy giá xuống đáy của ô */
-}
-
-.LB-book-price span {
-  margin: 0 10px; /* Thêm khoảng cách giữa giá gốc và giá khuyến mãi */
-}
-
-.LB-book-price span.original {
-  text-decoration: line-through;
-  color: #888; /* Màu chữ giá gốc nhạt hơn */
-}
-
-.LB-book-price .LB-original-price {
-  text-decoration: line-through;
-  color: #888; 
-  margin-bottom: 0.5rem; 
-}
-
-.LB-book-price .LB-sale-price {
-  color: #d9534f; 
+.book-list li p {
   font-weight: bold;
-  font-size: 1.7rem; 
+  font-size: 1rem; /* Tăng kích thước chữ tiêu đề sách */
+  margin-bottom: 0.5rem;
 }
-
-.LB-top-books-list p {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #888;
-}
-
-
 
 
 
@@ -2761,7 +2727,7 @@ font-size: 0.7rem; /* Adjust font size as needed */
   padding-left: 20px;
   padding-right: 20px;
 }
-.product-details-container .part2 h2 {
+.product-details-container h2 {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 10px;

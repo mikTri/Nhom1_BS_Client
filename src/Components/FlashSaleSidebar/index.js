@@ -12,11 +12,6 @@ const FlashSaleSidebar = () => {
     // Shuffle items on component mount
     const fetchBooks = async () => {
       try {
-        fetchDataFromApi("/api/books/get/count").then((res) => {
-          console.log("********res: " + res.booksCount);
-        }
-      );
-
         fetchDataFromApi('/api/books/flash-sale-books').then((response) => {
           console.log(response);
           console.group(response.books);

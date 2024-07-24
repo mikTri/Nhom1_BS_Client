@@ -1,6 +1,5 @@
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { FaAngleDown } from "react-icons/fa6";
 
 
 const Navigation = () =>{

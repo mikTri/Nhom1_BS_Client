@@ -101,18 +101,19 @@ const ProductItem = ({ props }) => {
 
                 {/* giá bán */}
                 <div className="info">
-                    <Link to={`/product/${product._id}`}><h4>{product.title}</h4></Link> {/* Use product.title for dynamic title */}
+               
+                    <Link to={`/product/${product._id}`}><h4>{product?.title?.length > 60 ? `${product?.title?.slice(0, 60)}...` : product?.title}</h4></Link> {/* Use product.title for dynamic title */}
                     <span className="text-success d-block">{product.author}</span>
 
 
                     <Rating className="mt-2 mb-2" name="read-only" value={product.rating || 0} readOnly size="small" precision={0.5} />
 
-                    <div className="d-flex">
-                        <span className="newPrice text-danger ml-2">{product.discountPrice || product.basePrice}VND </span> {/* Display either discountPrice or basePrice */}
+                    {/* <div className="d-flex"> */}
+                        <div className="newPrice text-danger ml-2">{product.discountPrice || product.basePrice} VND </div> {/* Display either discountPrice or basePrice */}
                         {product.discountPrice && (
-                            <span className="oldPrice">{product.basePrice}VND</span>
+                            <div className="oldPrice">{product.basePrice} VND</div>
                         )}
-                    </div>
+                    {/* </div> */}
                 </div>
 
             </div>

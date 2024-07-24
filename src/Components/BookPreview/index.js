@@ -78,15 +78,17 @@ const BookPreview = ({ bookList }) => {
           {filteredBooks.slice(0, 5).map((book) => (
             <li key={book._id} className='book-item'>
               <Link to={`/product-details/${book._id}`}>
-              {book.cover && <img src={book.cover} alt={book.title} width="80" height="auto" />}</Link>
-              <span className='book-info'>
-                {/* <div> {book.title} </div> */}
-                <div>{book.title.length > 60 ? `${book.title.slice(0, 60)}...` : book.title}</div>
-                <div className="book-price">
-                <span className="original-price">{book.basePrice}</span>
-                <span className="sale-price">{book.discountPrice}</span>
-              </div>
-              </span>
+                {book.cover && <img src={book.cover} alt={book.title} width="80" height="auto" />}
+                
+                {/* <span className='book-info'> */}
+                  {/* <div> {book.title} </div> */}
+                  <p className='title-container'>{book.title.length > 60 ? `${book.title.slice(0, 60)}...` : book.title}</p>
+                  <div className="price">
+                    <span className="original">{book.basePrice.toLocaleString('vi-VN')}</span>
+                    <span className="sale">{book.discountPrice.toLocaleString('vi-VN')} VND</span>
+                </div>
+                {/* </span> */}
+              </Link>
             </li>
           ))}
         </ul>

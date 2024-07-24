@@ -23,19 +23,17 @@ const SignUp = () => {
         address: "",
         email: "",
         password: "",
+        confirmPassword: "",
         isAdmin: false,
         createdDate: Date.now()
     })
 
     //hiển thị các thành phần UI
-    // useEffect(() => {
-    //     // invisible header & footer
-    //     context.setIsHeaderFooterShow(false);
-    // }, []);
     useEffect(() => {
         context.setIsHeaderFooterShow(false);
-        return () => context.setIsHeaderFooterShow(true); // Ensure header and footer are shown when component unmounts
+        return () => context.setIsHeaderFooterShow(true); 
     }, [context]);
+
 
     const onchangeInput = (e) => {
         setFormfields((prevFormfields) => ({
@@ -89,6 +87,24 @@ const SignUp = () => {
                     open: true,
                     error: true,
                     msg: "Vui lòng thêm mật khẩu!"
+                })
+                return false;
+            }
+
+            if (formfields.confirmPassword === "") {
+                context.setAlertBox({
+                    open: true,
+                    error: true,
+                    msg: "Vui lòng xác nhận lại mật khẩu!"
+                })
+                return false;
+            }
+
+            if (formfields.confirmPassword !== formfields.password) {
+                context.setAlertBox({
+                    open: true,
+                    error: true,
+                    msg: "Xác nhận lại mật khẩu không khớp!"
                 })
                 return false;
             }
@@ -181,7 +197,11 @@ const SignUp = () => {
 
                         {/* Text field: Password */}
                         <div className="form-group">
-                            <TextField id="standard-basic-password" label="Password" name="password" onChange={onchangeInput} type="password" variant="standard" className="w-100" />
+                            <TextField id="standard-basic-password" label="Mật khẩu" name="password" onChange={onchangeInput} type="password" variant="standard" className="w-100" />
+                            {/* <TextField id="standard-basic" label="Password" type="password" required variant="standard" className="w-100" name="password"/> */}
+                        </div>
+                        <div className="form-group">
+                            <TextField id="standard-basic-password" label="Xác nhận lại mật khẩu" name="confirmPassword" onChange={onchangeInput} type="password" variant="standard" className="w-100" />
                             {/* <TextField id="standard-basic" label="Password" type="password" required variant="standard" className="w-100" name="password"/> */}
                         </div>
 

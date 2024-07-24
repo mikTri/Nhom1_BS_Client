@@ -113,7 +113,6 @@ const Header = () => {
                                 {/* SEARCH BOX */}
                                 <div className={`headerSearchWrapper ${isOpenSearch === true && 'open'}`}>
                                     <div className=' d-flex align-items-center'>
-                                        <span className="closeSearch mr-3" onClick={() => setIsOpenSearch(false)}><FaAngleLeft /></span>
                                         <SearchBox closeSearch={closeSearch} />
                                     </div>
                                 </div>
@@ -129,62 +128,62 @@ const Header = () => {
 
                                     {/* LOGIN */}
                                     {
-                                        context.isLogin !== true ?                                                                      //if
-                                            <Link to="/signIn"><Button className='btn-blue btn-lg btn-round'>Đăng nhập</Button></Link> :     //then
-                                            <div className="myAccWrapper">                                                                  {/*else*/}
+                                        context.isLogin !== true                                                                      
+                                        ? <Link to="/signIn"><Button className='btn-blue btn-lg btn-round'>Đăng nhập</Button></Link> 
+                                        : <div className="myAccWrapper">                                                                  
 
-                                                <Button className="myAcc d-flex align-items-center" onClick={handleClick}>
-                                                    {/* hiển thị tên user */}
-                                                    <div className="userImg">
-                                                        <span className="rounded-circle"> {context.user?.name?.charAt(0)} </span>
-                                                    </div>
-                                                    {/* hiển thị email user */}
-                                                    <div className="userInfo">
-                                                        <h4>{context.user?.name}</h4>
-                                                        <p className="mb-0">{context.user?.email}</p>
-                                                    </div>
-                                                </Button>
+                                            <Button className="myAcc d-flex align-items-center" onClick={handleClick}>
+                                                {/* hiển thị tên user */}
+                                                <div className="userImg">
+                                                    <span className="rounded-circle"> {context.user?.name?.charAt(0)} </span>
+                                                </div>
+                                                {/* hiển thị email user */}
+                                                <div className="userInfo">
+                                                    <h4>{context.user?.name}</h4>
+                                                    <p className="mb-0">{context.user?.email}</p>
+                                                </div>
+                                            </Button>
 
-                                                <Menu anchorEl={anchorEl}
-                                                    id="account-menu"
-                                                    open={open}
-                                                    onClose={handleClose}
-                                                    onClick={handleClose}
-                                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                                >
-                                                    {/* my account */}
+                                            <Menu anchorEl={anchorEl}
+                                                id="account-menu"
+                                                open={open}
+                                                onClose={handleClose}
+                                                onClick={handleClose}
+                                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                            >
+                                                {/* my account */}
 
-                                                    <MenuItem onClick={handleClose}>
-                                                        <Link to="/my-account" className='link'>
-                                                            <ListItemIcon><FaUserAlt fontSize="small" /></ListItemIcon>
-                                                            Tài khoản của tôi
-                                                        </Link>
-                                                    </MenuItem>
+                                                <MenuItem onClick={handleClose}>
+                                                    <Link to="/my-account/change-personal-info" className='link'>
+                                                        <ListItemIcon><FaUserAlt fontSize="small" /></ListItemIcon>
+                                                        Tài khoản của tôi
+                                                    </Link>
+                                                </MenuItem>
 
-                                                    <MenuItem onClick={handleClose}>
-                                                        <Link to="/orders" className='link'>
-                                                            <ListItemIcon><FaClipboardCheck fontSize="small" /></ListItemIcon>
-                                                            Đơn hàng của tôi
-                                                        </Link>
-                                                    </MenuItem>
+                                                {/* <MenuItem onClick={handleClose}>
+                                                    <Link to="/orders" className='link'>
+                                                        <ListItemIcon><FaClipboardCheck fontSize="small" /></ListItemIcon>
+                                                        Đơn hàng của tôi
+                                                    </Link>
+                                                </MenuItem> */}
 
-                                                    {/* <MenuItem onClick={handleClose}>
-                                                        <Link to="/my-list" className='link'>
-                                                            <ListItemIcon><FaHeart fontSize="small" /></ListItemIcon>
-                                                            Danh sách của tôi
-                                                        </Link>
-                                                    </MenuItem> */}
+                                                {/* <MenuItem onClick={handleClose}>
+                                                    <Link to="/my-list" className='link'>
+                                                        <ListItemIcon><FaHeart fontSize="small" /></ListItemIcon>
+                                                        Danh sách của tôi
+                                                    </Link>
+                                                </MenuItem> */}
 
-                                                    {/* logout */}
-                                                    <MenuItem onClick={logout}>
-                                                        <ListItemIcon><RiLogoutCircleRFill fontSize="small" /></ListItemIcon>
-                                                        Đăng xuất
-                                                    </MenuItem>
+                                                {/* logout */}
+                                                <MenuItem onClick={logout}>
+                                                    <ListItemIcon><RiLogoutCircleRFill fontSize="small" /></ListItemIcon>
+                                                    Đăng xuất
+                                                </MenuItem>
 
-                                                </Menu>
+                                            </Menu>
 
-                                            </div>
+                                        </div>
                                     }
 
                                 </div>
@@ -192,11 +191,12 @@ const Header = () => {
                         </div>
                     </div>
 
+                    <Navigation/>
+
                     {/* NAVIGATION: kiểm tra nếu context.categoryData không phải là mảng rỗng, thì sẽ render component Navigation */}
-                    {/* <Navigation/> */}
-                    {
+                    {/* {
                         context.categoryData?.length !== 0 && <Navigation navData={context.categoryData} isOpenNav={isOpenNav} closeNav={closeNav} />
-                    }
+                    } */}
 
                 </header>
 

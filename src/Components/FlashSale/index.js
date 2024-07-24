@@ -52,10 +52,10 @@ const FlashSale = () => {
               <img src={item.cover} alt={item.title}/>
               <p className='title-container'>{item.title.length > 60 ? `${item.title.slice(0, 60)}...` : item.title}</p>
               <div className="price">
-                <span className="original">{item.basePrice}</span>
-                <span className="sale">{item.discountPrice}</span>
+                <span className="original">{item.basePrice.toLocaleString('vi-VN')}</span>
+                <span className="sale">{item.discountPrice.toLocaleString('vi-VN')} VND</span>
               </div>
-              </Link>
+            </Link>
             </li>
           ))}
       </div>

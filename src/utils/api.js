@@ -55,20 +55,10 @@ export const deleteData = async (url) => {
 }
 
 
-// export const uploadImage = async (url, formData) => {
-//     try {
-//         const { res } = await axios.post(process.env.REACT_APP_API_URL + url, formData);
-//         return res;
-//     } catch (error) {
-//         console.error('Error:', error);
-//         throw error;
-//     }
-// }
-
 // const result = await axios.post("http://localhost:4000/api/uploadImage", { image });
 export const uploadImage = async (url, { image }) => {
     try {
-        const response = await axios.post(process.env.REACT_APP_BASE_URL + url, { image });
+        const response = await axios.post(process.env.REACT_APP_API_URL + url, { image });
         return response.data;
     }
     catch (error) {

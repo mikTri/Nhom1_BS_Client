@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { RiLockPasswordFill } from "react-icons/ri";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import TextField from '@mui/material/TextField';
 
@@ -10,7 +9,6 @@ const PasswordBox = ({ label, name, inputIndex, setInputIndex, changeInput2 }) =
         <div className='form-group'>
             <div className="passwordBox">
                 <div className={`form-group position-relative ${inputIndex && 'focus'}`}>
-                    {/* <span className='icon'><RiLockPasswordFill /></span> */}
                     <TextField
                         type={isShowPassword ? 'text' : 'password'}
                         className='w-100'
@@ -20,6 +18,7 @@ const PasswordBox = ({ label, name, inputIndex, setInputIndex, changeInput2 }) =
                         name={name}
                         onChange={changeInput2}
                         variant="outlined"
+                        autoComplete='false'
                     />
                     <span className='toggleShowPassword' onClick={() => setisShowPassword(!isShowPassword)}>
                         {isShowPassword ? <IoMdEyeOff /> : <IoMdEye />}
