@@ -60,7 +60,12 @@ body{
 .toggleShowPassword{position: absolute; top: 10px; right: 8px; cursor: pointer;}
 .toggleShowPassword svg{font-size: 22px; color: #605f70;}
 
-
+/* Ẩn default Eye icon Cho tất cả các trình duyệt */
+input[type="password"] {-webkit-text-security: disc;}
+/* Cho trình duyệt Firefox */
+input[type="password"]::-ms-reveal {display: none;}
+/* Cho trình duyệt Internet Explorer */
+input[type="password"]::-ms-clear {display: none;}
 
 
 
