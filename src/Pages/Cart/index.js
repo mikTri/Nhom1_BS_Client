@@ -28,9 +28,9 @@ const Cart = () => {
         // Handle error gracefully, e.g., display an error message
       }
     };
-
     fetchBooks(); // Fetch books on component mount
-  }, []); // Empty dependency array ensures fetching only once
+    context.setCartChange(false);
+  }, [context.isCartChange]); // Empty dependency array ensures fetching only once
 
   const handleItemQuantityChange = async (Selecteditem, delta) => {
     const editedItem = { ...Selecteditem, quantity: Selecteditem.quantity + delta };
@@ -121,7 +121,7 @@ const Cart = () => {
                 </Link>
               </div>
               <div className="button-wrapper btn-continue-wrapper">
-                <Link to="/Home">
+                <Link to="/product-listing">
                   <Button variant="contained" className="btn-cart-outline btn-big">
                     Mua thêm
                   </Button>

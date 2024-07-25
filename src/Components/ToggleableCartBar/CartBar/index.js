@@ -9,10 +9,6 @@ const CartBar = ({ isVisible, onToggleVisibility, cartItems }) => {
   // Calculate total price
   const totalPrice = cartItems?.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const toggleCart = () => {
-    onToggleVisibility && onToggleVisibility(); // Call the provided toggle function
-  };
-
   return (
     <aside className={`cart-bar ${!isVisible ? "hidden" : ""}`}>
       {isVisible && (

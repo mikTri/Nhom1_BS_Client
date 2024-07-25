@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/bookStoreLogo.png';
 import SearchBox from '../Header/SearchBox';
 import Navigation from '../Header/Navigation';
+import { FaHeart } from "react-icons/fa";
 
 import { MyContext } from '../../App';
 
@@ -160,20 +161,20 @@ const Header = () => {
                                                         Tài khoản của tôi
                                                     </Link>
                                                 </MenuItem>
-
+                                                
                                                 {/* <MenuItem onClick={handleClose}>
-                                                    <Link to="/orders" className='link'>
+                                                    <Link to="/Cart" className='link'>
                                                         <ListItemIcon><FaClipboardCheck fontSize="small" /></ListItemIcon>
                                                         Đơn hàng của tôi
                                                     </Link>
-                                                </MenuItem> */}
-
-                                                {/* <MenuItem onClick={handleClose}>
-                                                    <Link to="/my-list" className='link'>
+                                                </MenuItem>
+                                                */}
+                                                <MenuItem onClick={handleClose}>
+                                                    <Link to="/MyList" className='link'>
                                                         <ListItemIcon><FaHeart fontSize="small" /></ListItemIcon>
                                                         Danh sách của tôi
                                                     </Link>
-                                                </MenuItem> */}
+                                                </MenuItem>
 
                                                 {/* logout */}
                                                 <MenuItem onClick={logout}>

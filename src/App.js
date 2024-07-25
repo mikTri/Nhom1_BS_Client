@@ -27,7 +27,7 @@ import ProductListing from "./Pages/ProductListing";
 import ProductDetails from "./Pages/ProductDetail";
 import Payment from "./Pages/Payment";
 import Cart from './Pages/Cart';
-
+import MyList from './Pages/MyList';
 
 
 import { Snackbar, Alert } from '@mui/material';
@@ -43,6 +43,8 @@ function App() {
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
   const [isCartShow, setCartShow] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
+  const [isCartChange, setCartChange] = useState(false);
+
 
   const [isOpenProductModal, setisOpenProductModal] = useState(false);
   const [productData, setProductData] = useState([]);
@@ -58,7 +60,7 @@ function App() {
   const [user, setUser] = useState({
     name: "",
     email: "",
-    userId: ""
+    userId: "",
   })
   const [Items, setCartList] = useState([]);
 
@@ -76,8 +78,6 @@ function App() {
       const fetchBooks = async () => {
         try {
           fetchDataFromApi(`/api/cart?userId=${userData.userId}`).then((response) =>{
-              console.log('cart');
-              console.log(response);
               setCartList(response);})
         } catch (error) {
           console.error('Error fetching books:', error);
@@ -86,14 +86,12 @@ function App() {
       };
   
       fetchBooks();
-      const intervalId = setInterval(fetchBooks, 2000);
 
   // Cleanup function to clear the interval when the component unmounts
-      return () => clearInterval(intervalId);
     } else {                                                      //ngược lại
       setIsLogin(false);
     }
-  }, [isLogin]);                                                  //useEffect sẽ chạy lại mỗi khi isLogin thay đổi
+  }, [isLogin,isCartChange]);                                                  //useEffect sẽ chạy lại mỗi khi isLogin thay đổi
 
 
 
@@ -134,6 +132,8 @@ function App() {
     alertBox,
     setAlertBox,
 
+    isCartChange,
+    setCartChange,
 
     // isOpenProductModal,
     // setisOpenProductModal,
@@ -190,6 +190,7 @@ function App() {
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route exact={true} path="/Payment" element={<Payment />} />
           <Route exact={true} path="/Cart" element={<Cart />} /> 
+          <Route exact={true} path="/MyList" element={<MyList />} /> 
 
         </Routes>
 

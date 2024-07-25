@@ -7,12 +7,11 @@ import { fetchDataFromApi, postData } from "../../utils/api";
 
 const Payment = () =>{
     const context = useContext(MyContext); // Assuming MyContext controls header/footer visibility
-    const [value, setValue] = useState(0);
     const [cartItems, setCartList] = useState([]);
   
     useEffect(() => {
         //context.setIsHeaderFooterShow(false); // Hide header and footer
-        context.setCartShow(false);
+        // context.setCartShow(false);
 
       const fetchBooks = async () => {
         try {

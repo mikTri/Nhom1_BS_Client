@@ -1272,7 +1272,6 @@ footer .social-icons a{
   padding: 20px 240px;
   background: #d9ccf1;
   margin-top: 10px;
-  padding-top: 210px;
 }
 .RefundPolicy .page-empty-banner{ 
   padding: 20px;
@@ -1409,6 +1408,8 @@ footer .social-icons a{
   background: #d9ccf1;
   margin-top: 15px;
   padding-top: 200px;
+  margin-top: 10px;
+  padding-top: 180px;
 }
 .DeliveryPolicy .page-empty-banner{ 
   padding: 20px;
@@ -2312,12 +2313,12 @@ font-size: 0.7rem; /* Adjust font size as needed */
 
 /* cart icon */
 .cart-bar {
-  max-height: 90%;
+  max-height: 70%;
   overflow-y: auto;
   position: fixed;
-  top: 200px; /* Khoảng cách từ trên */
+  top: 215px; /* Khoảng cách từ trên */
   right: 0;
-  width: 300px;
+  width: 350px;
   background-color: rgba(255, 255, 255, 0.9); /* Bớt trong suốt để thấy rõ hơn */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   padding: 1rem;
@@ -2325,7 +2326,7 @@ font-size: 0.7rem; /* Adjust font size as needed */
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease-in-out;
-  z-index: 999;
+  z-index: 9999;
 }
 
 /* Hiển thị giỏ hàng */
