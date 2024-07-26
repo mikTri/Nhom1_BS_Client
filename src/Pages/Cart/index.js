@@ -38,8 +38,7 @@ const Cart = () => {
       // Call the API to update the quantity on the server (adjusted for delta)
       console.log('/api/cart/' + Selecteditem.id, editedItem)
       await editData('/api/cart/' + Selecteditem.id, editedItem)
-      const response = await fetchDataFromApi('/api/cart');
-      setCartList(response);
+      context.setCartChange(true);
     } catch (error) {
       console.error('Error updating carts:', error);
       // Handle error gracefully, e.g., display an error message
@@ -53,8 +52,7 @@ const Cart = () => {
       console.error('Error removing item from cart (API call):', error);
       // Handle error gracefully, e.g., display an error message
     }
-    const response = await fetchDataFromApi('/api/cart');
-    setCartList(response);
+    context.setCartChange(true);
   };
 
   const hasItems = cartItems && cartItems.length > 0;
@@ -121,7 +119,7 @@ const Cart = () => {
                 </Link>
               </div>
               <div className="button-wrapper btn-continue-wrapper">
-                <Link to="/product-listing">
+                <Link to="/Home">
                   <Button variant="contained" className="btn-cart-outline btn-big">
                     Mua thêm
                   </Button>

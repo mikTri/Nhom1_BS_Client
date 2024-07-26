@@ -8,7 +8,19 @@ import { fetchDataFromApi, postData } from "../../utils/api";
 const Payment = () =>{
     const context = useContext(MyContext); // Assuming MyContext controls header/footer visibility
     const [cartItems, setCartList] = useState([]);
-  
+    const [totalPrice, setPrice] = useState(0);
+    const [count, setCount] = useState(0);
+    const [paymentDetails, setPaymentDetails] = useState({
+      name: '',
+      phoneNumber: '',
+      address: '',
+      amount: totalPrice,
+      paymentId: '',
+      email: context.user?.email,
+      userid: context.user?.userId,
+      products: cartItems,
+  });
+
     useEffect(() => {
         //context.setIsHeaderFooterShow(false); // Hide header and footer
         // context.setCartShow(false);
@@ -16,7 +28,12 @@ const Payment = () =>{
       const fetchBooks = async () => {
         try {
           fetchDataFromApi(`/api/cart?userId=${context.user?.userId}`).then((response) => {
+            console.log('fe')
+            console.log(response);
             setCartList(response);
+            console.log(cartItems);
+            setPrice(cartItems?.reduce((acc, item) => acc + item.price * item.quantity, 0))
+            console.log(totalPrice);
           })
         } catch (error) {
           console.error('Error fetching books:', error);
@@ -24,26 +41,19 @@ const Payment = () =>{
         }
       };
   
-      fetchBooks(); // Fetch books on component mount
-    },[]); // Empty dependency array ensures fetching only once
-    const totalPrice = cartItems?.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
-    const [paymentDetails, setPaymentDetails] = useState({
-        name: '',
-        phoneNumber: '',
-        address: '',
-        amount: totalPrice,
-        paymentId: '',
-        email: context.user?.email,
-        userid: context.user?.userId,
-        products: cartItems,
-    });
+        fetchBooks();
+    }, [count]);
 
     const handleInputChange = (event) => {
         setPaymentDetails({
             ...paymentDetails,
+            amount: totalPrice,
+            products: cartItems,
+            email: context.user?.email,
+            userid: context.user?.userId,
             [event.target.name]: event.target.value,
         });
+        setCount(count + 1);
     };
 
     const handlePaymentSubmit = async (event) => {
