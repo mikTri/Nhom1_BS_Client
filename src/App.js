@@ -91,7 +91,7 @@ function App() {
     } else {                                                      //ngược lại
       setIsLogin(false);
     }
-  }, [isLogin,isCartChange,user]);                                                  //useEffect sẽ chạy lại mỗi khi isLogin thay đổi
+  }, [isLogin,isCartChange]);                                                  //useEffect sẽ chạy lại mỗi khi isLogin thay đổi
 
 
 
