@@ -71,6 +71,7 @@ const FlashSaleSidebar = () => {
         postData('/api/cart/add', PostForm)
           .then(response => {
             console.log('Item added to cart:', response);
+            context.setCartChange(true);
             // Handle successful addition
           })
           .catch(error => {
