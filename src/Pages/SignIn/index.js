@@ -119,7 +119,7 @@ const SignIn = () => {
 
 
                         {/* forgot password */}
-                        <a className="border-effect cursor txt">Bạn quên mật khẩu?</a>
+                        {/* <a className="border-effect cursor txt">Bạn quên mật khẩu?</a> */}
 
 
                         {/* sign in button */}
