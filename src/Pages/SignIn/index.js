@@ -27,12 +27,13 @@ const SignIn = () => {
 
 
     useEffect(() => {
-        context.setIsHeaderFooterShow(true);
+        context.setIsHeaderFooterShow(false);
 
         const token = localStorage.getItem("token");
         if (token !== "" && token !== undefined && token !== null) {
             setIsLogin(true);
             navigate('/'); 
+            context.setIsHeaderFooterShow(true);
         }
         else {
             navigate('/signIn'); 
